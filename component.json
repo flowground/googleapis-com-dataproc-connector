@@ -1,0 +1,441 @@
+{
+    "title": "Cloud Dataproc",
+    "description": "Manages Hadoop-based clusters and jobs on Google Cloud Platform.",
+    "docsUrl": "https://cloud.google.com/dataproc/",
+    "url": "https://api.apis.guru/v2/specs/googleapis.com/dataproc/v1/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://dataproc.googleapis.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "Oauth2": {
+                "label": "Oauth 2.0 authentication",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "dataproc_projects_regions_clusters_list": {
+            "main": "./lib/actions/dataproc_projects_regions_clusters_list.js",
+            "title": "Lists all regions/{region}/clusters in a project.",
+            "description": "Lists all regions/{region}/clusters in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_clusters_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_clusters_create": {
+            "main": "./lib/actions/dataproc_projects_regions_clusters_create.js",
+            "title": "Creates a cluster in a project.",
+            "description": "Creates a cluster in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_clusters_create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_clusters_delete": {
+            "main": "./lib/actions/dataproc_projects_regions_clusters_delete.js",
+            "title": "Deletes a cluster in a project.",
+            "description": "Deletes a cluster in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_clusters_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_clusters_get": {
+            "main": "./lib/actions/dataproc_projects_regions_clusters_get.js",
+            "title": "Gets the resource representation for a cluster in a project.",
+            "description": "Gets the resource representation for a cluster in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_clusters_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_clusters_patch": {
+            "main": "./lib/actions/dataproc_projects_regions_clusters_patch.js",
+            "title": "Updates a cluster in a project.",
+            "description": "Updates a cluster in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_clusters_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_clusters_diagnose": {
+            "main": "./lib/actions/dataproc_projects_regions_clusters_diagnose.js",
+            "title": "Gets cluster diagnostic information. After the operation completes, the Operation.response field contains DiagnoseClusterOutputLocation.",
+            "description": "Gets cluster diagnostic information. After the operation completes, the Operation.response field contains DiagnoseClusterOutputLocation.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_clusters_diagnose.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_list": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_list.js",
+            "title": "Lists regions/{region}/jobs in a project.",
+            "description": "Lists regions/{region}/jobs in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_delete": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_delete.js",
+            "title": "Deletes the job from the project. If the job is active, the delete fails, and the response returns FAILED_PRECONDITION.",
+            "description": "Deletes the job from the project. If the job is active, the delete fails, and the response returns FAILED_PRECONDITION.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_get": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_get.js",
+            "title": "Gets the resource representation for a job in a project.",
+            "description": "Gets the resource representation for a job in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_patch": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_patch.js",
+            "title": "Updates a job in a project.",
+            "description": "Updates a job in a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_cancel": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_cancel.js",
+            "title": "Starts a job cancellation request. To access the job resource after cancellation, call regions/{region}/jobs.list or regions/{region}/jobs.get.",
+            "description": "Starts a job cancellation request. To access the job resource after cancellation, call regions/{region}/jobs.list or regions/{region}/jobs.get.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_cancel.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_submit": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_submit.js",
+            "title": "Submits a job to a cluster.",
+            "description": "Submits a job to a cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_submit.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_operations_delete": {
+            "main": "./lib/actions/dataproc_projects_regions_operations_delete.js",
+            "title": "Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns google.rpc.Code.UNIMPLEMENTED.",
+            "description": "Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns google.rpc.Code.UNIMPLEMENTED.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_operations_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_operations_get": {
+            "main": "./lib/actions/dataproc_projects_regions_operations_get.js",
+            "title": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.",
+            "description": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_operations_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_workflowTemplates_update": {
+            "main": "./lib/actions/dataproc_projects_regions_workflowTemplates_update.js",
+            "title": "Updates (replaces) workflow template. The updated template must contain version that matches the current server version.",
+            "description": "Updates (replaces) workflow template. The updated template must contain version that matches the current server version.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_workflowTemplates_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_operations_cancel": {
+            "main": "./lib/actions/dataproc_projects_regions_operations_cancel.js",
+            "title": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns google.rpc.Code.UNIMPLEMENTED. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to Code.CANCELLED.",
+            "description": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns google.rpc.Code.UNIMPLEMENTED. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to Code.CANCELLED.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_operations_cancel.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_workflowTemplates_instantiate": {
+            "main": "./lib/actions/dataproc_projects_regions_workflowTemplates_instantiate.js",
+            "title": "Instantiates a template and begins execution.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.",
+            "description": "Instantiates a template and begins execution.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_workflowTemplates_instantiate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_workflowTemplates_list": {
+            "main": "./lib/actions/dataproc_projects_regions_workflowTemplates_list.js",
+            "title": "Lists workflows that match the specified filter in the request.",
+            "description": "Lists workflows that match the specified filter in the request.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_workflowTemplates_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_workflowTemplates_create": {
+            "main": "./lib/actions/dataproc_projects_regions_workflowTemplates_create.js",
+            "title": "Creates new workflow template.",
+            "description": "Creates new workflow template.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_workflowTemplates_create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_workflowTemplates_instantiateInline": {
+            "main": "./lib/actions/dataproc_projects_regions_workflowTemplates_instantiateInline.js",
+            "title": "Instantiates a template and begins execution.This method is equivalent to executing the sequence CreateWorkflowTemplate, InstantiateWorkflowTemplate, DeleteWorkflowTemplate.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.",
+            "description": "Instantiates a template and begins execution.This method is equivalent to executing the sequence CreateWorkflowTemplate, InstantiateWorkflowTemplate, DeleteWorkflowTemplate.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_workflowTemplates_instantiateInline.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_getIamPolicy": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_getIamPolicy.js",
+            "title": "Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.",
+            "description": "Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_getIamPolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_setIamPolicy": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_setIamPolicy.js",
+            "title": "Sets the access control policy on the specified resource. Replaces any existing policy.",
+            "description": "Sets the access control policy on the specified resource. Replaces any existing policy.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_setIamPolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "dataproc_projects_regions_jobs_testIamPermissions": {
+            "main": "./lib/actions/dataproc_projects_regions_jobs_testIamPermissions.js",
+            "title": "Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a NOT_FOUND error.Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may \"fail open\" without warning.",
+            "description": "Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a NOT_FOUND error.Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may \"fail open\" without warning.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/dataproc_projects_regions_jobs_testIamPermissions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

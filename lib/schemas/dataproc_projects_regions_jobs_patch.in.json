@@ -1,0 +1,640 @@
+{
+    "type": "object",
+    "properties": {
+        "jobId": {
+            "required": true,
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "region": {
+            "required": true,
+            "type": "string"
+        },
+        "updateMask": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A Cloud Dataproc job resource.",
+            "properties": {
+                "driverControlFilesUri": {
+                    "description": "Output only. If present, the location of miscellaneous control files which may be used as part of job setup and handling. If not present, control files may be placed in the same location as driver_output_uri.",
+                    "type": "string"
+                },
+                "driverOutputResourceUri": {
+                    "description": "Output only. A URI pointing to the location of the stdout of the job's driver program.",
+                    "type": "string"
+                },
+                "hadoopJob": {
+                    "description": "Job is a Hadoop job.",
+                    "properties": {
+                        "archiveUris": {
+                            "description": "Optional. HCFS URIs of archives to be extracted in the working directory of Hadoop drivers and tasks. Supported file types: .jar, .tar, .tar.gz, .tgz, or .zip.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "args": {
+                            "description": "Optional. The arguments to pass to the driver. Do not include arguments, such as -libjars or -Dfoo=bar, that can be set as job properties, since a collision may occur that causes an incorrect job submission.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "fileUris": {
+                            "description": "Optional. HCFS (Hadoop Compatible Filesystem) URIs of files to be copied to the working directory of Hadoop drivers and distributed tasks. Useful for naively parallel tasks.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "jarFileUris": {
+                            "description": "Optional. Jar file URIs to add to the CLASSPATHs of the Hadoop driver and tasks.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "loggingConfig": {
+                            "description": "Optional. The runtime log config for job execution.",
+                            "properties": {
+                                "driverLogLevels": {
+                                    "additionalProperties": {
+                                        "enum": [
+                                            "LEVEL_UNSPECIFIED",
+                                            "ALL",
+                                            "TRACE",
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR",
+                                            "FATAL",
+                                            "OFF"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "mainClass": {
+                            "description": "The name of the driver's main class. The jar file containing the class must be in the default CLASSPATH or specified in jar_file_uris.",
+                            "type": "string"
+                        },
+                        "mainJarFileUri": {
+                            "description": "The HCFS URI of the jar file containing the main class. Examples:  'gs://foo-bucket/analytics-binaries/extract-useful-metrics-mr.jar'  'hdfs:/tmp/test-samples/custom-wordcount.jar'  'file:///home/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar'",
+                            "type": "string"
+                        },
+                        "properties": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. A mapping of property names to values, used to configure Hadoop. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site and classes in user code.",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "hiveJob": {
+                    "description": "Job is a Hive job.",
+                    "properties": {
+                        "continueOnFailure": {
+                            "description": "Optional. Whether to continue executing queries if a query fails. The default value is false. Setting to true can be useful when executing independent parallel queries.",
+                            "type": "boolean"
+                        },
+                        "jarFileUris": {
+                            "description": "Optional. HCFS URIs of jar files to add to the CLASSPATH of the Hive server and Hadoop MapReduce (MR) tasks. Can contain Hive SerDes and UDFs.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "properties": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. A mapping of property names and values, used to configure Hive. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml, /etc/hive/conf/hive-site.xml, and classes in user code.",
+                            "type": "object"
+                        },
+                        "queryFileUri": {
+                            "description": "The HCFS URI of the script that contains Hive queries.",
+                            "type": "string"
+                        },
+                        "queryList": {
+                            "description": "A list of queries.",
+                            "properties": {
+                                "queries": {
+                                    "description": "Required. The queries to execute. You do not need to terminate a query with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of an Cloud Dataproc API snippet that uses a QueryList to specify a HiveJob:\n\"hiveJob\": {\n  \"queryList\": {\n    \"queries\": [\n      \"query1\",\n      \"query2\",\n      \"query3;query4\",\n    ]\n  }\n}\n",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "scriptVariables": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. Mapping of query variable names to values (equivalent to the Hive command: SET name=\"value\";).",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "jobUuid": {
+                    "description": "Output only. A UUID that uniquely identifies a job within the project over time. This is in contrast to a user-settable reference.job_id that may be reused over time.",
+                    "type": "string"
+                },
+                "labels": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Optional. The labels to associate with this job. Label keys must contain 1 to 63 characters, and must conform to RFC 1035 (https://www.ietf.org/rfc/rfc1035.txt). Label values may be empty, but, if present, must contain 1 to 63 characters, and must conform to RFC 1035 (https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be associated with a job.",
+                    "type": "object"
+                },
+                "pigJob": {
+                    "description": "Job is a Pig job.",
+                    "properties": {
+                        "continueOnFailure": {
+                            "description": "Optional. Whether to continue executing queries if a query fails. The default value is false. Setting to true can be useful when executing independent parallel queries.",
+                            "type": "boolean"
+                        },
+                        "jarFileUris": {
+                            "description": "Optional. HCFS URIs of jar files to add to the CLASSPATH of the Pig Client and Hadoop MapReduce (MR) tasks. Can contain Pig UDFs.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "loggingConfig": {
+                            "description": "Optional. The runtime log config for job execution.",
+                            "properties": {
+                                "driverLogLevels": {
+                                    "additionalProperties": {
+                                        "enum": [
+                                            "LEVEL_UNSPECIFIED",
+                                            "ALL",
+                                            "TRACE",
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR",
+                                            "FATAL",
+                                            "OFF"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "properties": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. A mapping of property names to values, used to configure Pig. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml, /etc/pig/conf/pig.properties, and classes in user code.",
+                            "type": "object"
+                        },
+                        "queryFileUri": {
+                            "description": "The HCFS URI of the script that contains the Pig queries.",
+                            "type": "string"
+                        },
+                        "queryList": {
+                            "description": "A list of queries.",
+                            "properties": {
+                                "queries": {
+                                    "description": "Required. The queries to execute. You do not need to terminate a query with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of an Cloud Dataproc API snippet that uses a QueryList to specify a HiveJob:\n\"hiveJob\": {\n  \"queryList\": {\n    \"queries\": [\n      \"query1\",\n      \"query2\",\n      \"query3;query4\",\n    ]\n  }\n}\n",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "scriptVariables": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. Mapping of query variable names to values (equivalent to the Pig command: name=[value]).",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "placement": {
+                    "description": "Required. Job information, including how, when, and where to run the job.",
+                    "properties": {
+                        "clusterName": {
+                            "description": "Required. The name of the cluster where the job will be submitted.",
+                            "type": "string"
+                        },
+                        "clusterUuid": {
+                            "description": "Output only. A cluster UUID generated by the Cloud Dataproc service when the job is submitted.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "pysparkJob": {
+                    "description": "Job is a Pyspark job.",
+                    "properties": {
+                        "archiveUris": {
+                            "description": "Optional. HCFS URIs of archives to be extracted in the working directory of .jar, .tar, .tar.gz, .tgz, and .zip.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "args": {
+                            "description": "Optional. The arguments to pass to the driver. Do not include arguments, such as --conf, that can be set as job properties, since a collision may occur that causes an incorrect job submission.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "fileUris": {
+                            "description": "Optional. HCFS URIs of files to be copied to the working directory of Python drivers and distributed tasks. Useful for naively parallel tasks.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "jarFileUris": {
+                            "description": "Optional. HCFS URIs of jar files to add to the CLASSPATHs of the Python driver and tasks.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "loggingConfig": {
+                            "description": "Optional. The runtime log config for job execution.",
+                            "properties": {
+                                "driverLogLevels": {
+                                    "additionalProperties": {
+                                        "enum": [
+                                            "LEVEL_UNSPECIFIED",
+                                            "ALL",
+                                            "TRACE",
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR",
+                                            "FATAL",
+                                            "OFF"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "mainPythonFileUri": {
+                            "description": "Required. The HCFS URI of the main Python file to use as the driver. Must be a .py file.",
+                            "type": "string"
+                        },
+                        "properties": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. A mapping of property names to values, used to configure PySpark. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf and classes in user code.",
+                            "type": "object"
+                        },
+                        "pythonFileUris": {
+                            "description": "Optional. HCFS file URIs of Python files to pass to the PySpark framework. Supported file types: .py, .egg, and .zip.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "reference": {
+                    "description": "Optional. The fully qualified reference to the job, which can be used to obtain the equivalent REST path of the job resource. If this property is not specified when a job is created, the server generates a <code>job_id</code>.",
+                    "properties": {
+                        "jobId": {
+                            "description": "Optional. The job ID, which must be unique within the project.The ID must contain only letters (a-z, A-Z), numbers (0-9), underscores (_), or hyphens (-). The maximum length is 100 characters.If not specified by the caller, the job ID will be provided by the server.",
+                            "type": "string"
+                        },
+                        "projectId": {
+                            "description": "Required. The ID of the Google Cloud Platform project that the job belongs to.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "scheduling": {
+                    "description": "Optional. Job scheduling configuration.",
+                    "properties": {
+                        "maxFailuresPerHour": {
+                            "description": "Optional. Maximum number of times per hour a driver may be restarted as a result of driver terminating with non-zero code before job is reported failed.A job may be reported as thrashing if driver exits with non-zero code 4 times within 10 minute window.Maximum value is 10.",
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "sparkJob": {
+                    "description": "Job is a Spark job.",
+                    "properties": {
+                        "archiveUris": {
+                            "description": "Optional. HCFS URIs of archives to be extracted in the working directory of Spark drivers and tasks. Supported file types: .jar, .tar, .tar.gz, .tgz, and .zip.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "args": {
+                            "description": "Optional. The arguments to pass to the driver. Do not include arguments, such as --conf, that can be set as job properties, since a collision may occur that causes an incorrect job submission.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "fileUris": {
+                            "description": "Optional. HCFS URIs of files to be copied to the working directory of Spark drivers and distributed tasks. Useful for naively parallel tasks.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "jarFileUris": {
+                            "description": "Optional. HCFS URIs of jar files to add to the CLASSPATHs of the Spark driver and tasks.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "loggingConfig": {
+                            "description": "Optional. The runtime log config for job execution.",
+                            "properties": {
+                                "driverLogLevels": {
+                                    "additionalProperties": {
+                                        "enum": [
+                                            "LEVEL_UNSPECIFIED",
+                                            "ALL",
+                                            "TRACE",
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR",
+                                            "FATAL",
+                                            "OFF"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "mainClass": {
+                            "description": "The name of the driver's main class. The jar file that contains the class must be in the default CLASSPATH or specified in jar_file_uris.",
+                            "type": "string"
+                        },
+                        "mainJarFileUri": {
+                            "description": "The HCFS URI of the jar file that contains the main class.",
+                            "type": "string"
+                        },
+                        "properties": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. A mapping of property names to values, used to configure Spark. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf and classes in user code.",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "sparkSqlJob": {
+                    "description": "Job is a SparkSql job.",
+                    "properties": {
+                        "jarFileUris": {
+                            "description": "Optional. HCFS URIs of jar files to be added to the Spark CLASSPATH.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "loggingConfig": {
+                            "description": "Optional. The runtime log config for job execution.",
+                            "properties": {
+                                "driverLogLevels": {
+                                    "additionalProperties": {
+                                        "enum": [
+                                            "LEVEL_UNSPECIFIED",
+                                            "ALL",
+                                            "TRACE",
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR",
+                                            "FATAL",
+                                            "OFF"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "properties": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. A mapping of property names to values, used to configure Spark SQL's SparkConf. Properties that conflict with values set by the Cloud Dataproc API may be overwritten.",
+                            "type": "object"
+                        },
+                        "queryFileUri": {
+                            "description": "The HCFS URI of the script that contains SQL queries.",
+                            "type": "string"
+                        },
+                        "queryList": {
+                            "description": "A list of queries.",
+                            "properties": {
+                                "queries": {
+                                    "description": "Required. The queries to execute. You do not need to terminate a query with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of an Cloud Dataproc API snippet that uses a QueryList to specify a HiveJob:\n\"hiveJob\": {\n  \"queryList\": {\n    \"queries\": [\n      \"query1\",\n      \"query2\",\n      \"query3;query4\",\n    ]\n  }\n}\n",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "scriptVariables": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Optional. Mapping of query variable names to values (equivalent to the Spark SQL command: SET name=\"value\";).",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "status": {
+                    "description": "Output only. The job status. Additional application-specific status information may be contained in the <code>type_job</code> and <code>yarn_applications</code> fields.",
+                    "properties": {
+                        "details": {
+                            "description": "Output only. Optional job state details, such as an error description if the state is <code>ERROR</code>.",
+                            "type": "string"
+                        },
+                        "state": {
+                            "description": "Output only. A state message specifying the overall job state.",
+                            "enum": [
+                                "STATE_UNSPECIFIED",
+                                "PENDING",
+                                "SETUP_DONE",
+                                "RUNNING",
+                                "CANCEL_PENDING",
+                                "CANCEL_STARTED",
+                                "CANCELLED",
+                                "DONE",
+                                "ERROR",
+                                "ATTEMPT_FAILURE"
+                            ],
+                            "type": "string"
+                        },
+                        "stateStartTime": {
+                            "description": "Output only. The time when this state was entered.",
+                            "format": "google-datetime",
+                            "type": "string"
+                        },
+                        "substate": {
+                            "description": "Output only. Additional state information, which includes status reported by the agent.",
+                            "enum": [
+                                "UNSPECIFIED",
+                                "SUBMITTED",
+                                "QUEUED",
+                                "STALE_STATUS"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "statusHistory": {
+                    "description": "Output only. The previous job status.",
+                    "items": {
+                        "description": "Cloud Dataproc job status.",
+                        "properties": {
+                            "details": {
+                                "description": "Output only. Optional job state details, such as an error description if the state is <code>ERROR</code>.",
+                                "type": "string"
+                            },
+                            "state": {
+                                "description": "Output only. A state message specifying the overall job state.",
+                                "enum": [
+                                    "STATE_UNSPECIFIED",
+                                    "PENDING",
+                                    "SETUP_DONE",
+                                    "RUNNING",
+                                    "CANCEL_PENDING",
+                                    "CANCEL_STARTED",
+                                    "CANCELLED",
+                                    "DONE",
+                                    "ERROR",
+                                    "ATTEMPT_FAILURE"
+                                ],
+                                "type": "string"
+                            },
+                            "stateStartTime": {
+                                "description": "Output only. The time when this state was entered.",
+                                "format": "google-datetime",
+                                "type": "string"
+                            },
+                            "substate": {
+                                "description": "Output only. Additional state information, which includes status reported by the agent.",
+                                "enum": [
+                                    "UNSPECIFIED",
+                                    "SUBMITTED",
+                                    "QUEUED",
+                                    "STALE_STATUS"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "yarnApplications": {
+                    "description": "Output only. The collection of YARN applications spun up by this job.Beta Feature: This report is available for testing purposes only. It may be changed before final release.",
+                    "items": {
+                        "description": "A YARN application created by a job. Application information is a subset of <code>org.apache.hadoop.yarn.proto.YarnProtos.ApplicationReportProto</code>.Beta Feature: This report is available for testing purposes only. It may be changed before final release.",
+                        "properties": {
+                            "name": {
+                                "description": "Required. The application name.",
+                                "type": "string"
+                            },
+                            "progress": {
+                                "description": "Required. The numerical progress of the application, from 1 to 100.",
+                                "format": "float",
+                                "type": "number"
+                            },
+                            "state": {
+                                "description": "Required. The application state.",
+                                "enum": [
+                                    "STATE_UNSPECIFIED",
+                                    "NEW",
+                                    "NEW_SAVING",
+                                    "SUBMITTED",
+                                    "ACCEPTED",
+                                    "RUNNING",
+                                    "FINISHED",
+                                    "FAILED",
+                                    "KILLED"
+                                ],
+                                "type": "string"
+                            },
+                            "trackingUrl": {
+                                "description": "Optional. The HTTP URL of the ApplicationMaster, HistoryServer, or TimelineServer that provides application-specific information. The URL uses the internal hostname, and requires a proxy server for resolution and, possibly, access.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

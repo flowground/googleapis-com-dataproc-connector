@@ -1,0 +1,994 @@
+{
+    "type": "object",
+    "properties": {
+        "parent": {
+            "required": true,
+            "type": "string"
+        },
+        "requestId": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A Cloud Dataproc workflow template resource.",
+            "properties": {
+                "createTime": {
+                    "description": "Output only. The time template was created.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Required. The template id.The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_), and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between 3 and 50 characters.",
+                    "type": "string"
+                },
+                "jobs": {
+                    "description": "Required. The Directed Acyclic Graph of Jobs to submit.",
+                    "items": {
+                        "description": "A job executed by the workflow.",
+                        "properties": {
+                            "hadoopJob": {
+                                "description": "Job is a Hadoop job.",
+                                "properties": {
+                                    "archiveUris": {
+                                        "description": "Optional. HCFS URIs of archives to be extracted in the working directory of Hadoop drivers and tasks. Supported file types: .jar, .tar, .tar.gz, .tgz, or .zip.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "args": {
+                                        "description": "Optional. The arguments to pass to the driver. Do not include arguments, such as -libjars or -Dfoo=bar, that can be set as job properties, since a collision may occur that causes an incorrect job submission.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "fileUris": {
+                                        "description": "Optional. HCFS (Hadoop Compatible Filesystem) URIs of files to be copied to the working directory of Hadoop drivers and distributed tasks. Useful for naively parallel tasks.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "jarFileUris": {
+                                        "description": "Optional. Jar file URIs to add to the CLASSPATHs of the Hadoop driver and tasks.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "loggingConfig": {
+                                        "description": "Optional. The runtime log config for job execution.",
+                                        "properties": {
+                                            "driverLogLevels": {
+                                                "additionalProperties": {
+                                                    "enum": [
+                                                        "LEVEL_UNSPECIFIED",
+                                                        "ALL",
+                                                        "TRACE",
+                                                        "DEBUG",
+                                                        "INFO",
+                                                        "WARN",
+                                                        "ERROR",
+                                                        "FATAL",
+                                                        "OFF"
+                                                    ],
+                                                    "type": "string"
+                                                },
+                                                "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "mainClass": {
+                                        "description": "The name of the driver's main class. The jar file containing the class must be in the default CLASSPATH or specified in jar_file_uris.",
+                                        "type": "string"
+                                    },
+                                    "mainJarFileUri": {
+                                        "description": "The HCFS URI of the jar file containing the main class. Examples:  'gs://foo-bucket/analytics-binaries/extract-useful-metrics-mr.jar'  'hdfs:/tmp/test-samples/custom-wordcount.jar'  'file:///home/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar'",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. A mapping of property names to values, used to configure Hadoop. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site and classes in user code.",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "hiveJob": {
+                                "description": "Job is a Hive job.",
+                                "properties": {
+                                    "continueOnFailure": {
+                                        "description": "Optional. Whether to continue executing queries if a query fails. The default value is false. Setting to true can be useful when executing independent parallel queries.",
+                                        "type": "boolean"
+                                    },
+                                    "jarFileUris": {
+                                        "description": "Optional. HCFS URIs of jar files to add to the CLASSPATH of the Hive server and Hadoop MapReduce (MR) tasks. Can contain Hive SerDes and UDFs.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "properties": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. A mapping of property names and values, used to configure Hive. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml, /etc/hive/conf/hive-site.xml, and classes in user code.",
+                                        "type": "object"
+                                    },
+                                    "queryFileUri": {
+                                        "description": "The HCFS URI of the script that contains Hive queries.",
+                                        "type": "string"
+                                    },
+                                    "queryList": {
+                                        "description": "A list of queries.",
+                                        "properties": {
+                                            "queries": {
+                                                "description": "Required. The queries to execute. You do not need to terminate a query with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of an Cloud Dataproc API snippet that uses a QueryList to specify a HiveJob:\n\"hiveJob\": {\n  \"queryList\": {\n    \"queries\": [\n      \"query1\",\n      \"query2\",\n      \"query3;query4\",\n    ]\n  }\n}\n",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "scriptVariables": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. Mapping of query variable names to values (equivalent to the Hive command: SET name=\"value\";).",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "labels": {
+                                "additionalProperties": {
+                                    "type": "string"
+                                },
+                                "description": "Optional. The labels to associate with this job.Label keys must be between 1 and 63 characters long, and must conform to the following regular expression: \\p{Ll}\\p{Lo}{0,62}Label values must be between 1 and 63 characters long, and must conform to the following regular expression: \\p{Ll}\\p{Lo}\\p{N}_-{0,63}No more than 32 labels can be associated with a given job.",
+                                "type": "object"
+                            },
+                            "pigJob": {
+                                "description": "Job is a Pig job.",
+                                "properties": {
+                                    "continueOnFailure": {
+                                        "description": "Optional. Whether to continue executing queries if a query fails. The default value is false. Setting to true can be useful when executing independent parallel queries.",
+                                        "type": "boolean"
+                                    },
+                                    "jarFileUris": {
+                                        "description": "Optional. HCFS URIs of jar files to add to the CLASSPATH of the Pig Client and Hadoop MapReduce (MR) tasks. Can contain Pig UDFs.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "loggingConfig": {
+                                        "description": "Optional. The runtime log config for job execution.",
+                                        "properties": {
+                                            "driverLogLevels": {
+                                                "additionalProperties": {
+                                                    "enum": [
+                                                        "LEVEL_UNSPECIFIED",
+                                                        "ALL",
+                                                        "TRACE",
+                                                        "DEBUG",
+                                                        "INFO",
+                                                        "WARN",
+                                                        "ERROR",
+                                                        "FATAL",
+                                                        "OFF"
+                                                    ],
+                                                    "type": "string"
+                                                },
+                                                "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "properties": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. A mapping of property names to values, used to configure Pig. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml, /etc/pig/conf/pig.properties, and classes in user code.",
+                                        "type": "object"
+                                    },
+                                    "queryFileUri": {
+                                        "description": "The HCFS URI of the script that contains the Pig queries.",
+                                        "type": "string"
+                                    },
+                                    "queryList": {
+                                        "description": "A list of queries.",
+                                        "properties": {
+                                            "queries": {
+                                                "description": "Required. The queries to execute. You do not need to terminate a query with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of an Cloud Dataproc API snippet that uses a QueryList to specify a HiveJob:\n\"hiveJob\": {\n  \"queryList\": {\n    \"queries\": [\n      \"query1\",\n      \"query2\",\n      \"query3;query4\",\n    ]\n  }\n}\n",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "scriptVariables": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. Mapping of query variable names to values (equivalent to the Pig command: name=[value]).",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "prerequisiteStepIds": {
+                                "description": "Optional. The optional list of prerequisite job step_ids. If not specified, the job will start at the beginning of workflow.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "pysparkJob": {
+                                "description": "Job is a Pyspark job.",
+                                "properties": {
+                                    "archiveUris": {
+                                        "description": "Optional. HCFS URIs of archives to be extracted in the working directory of .jar, .tar, .tar.gz, .tgz, and .zip.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "args": {
+                                        "description": "Optional. The arguments to pass to the driver. Do not include arguments, such as --conf, that can be set as job properties, since a collision may occur that causes an incorrect job submission.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "fileUris": {
+                                        "description": "Optional. HCFS URIs of files to be copied to the working directory of Python drivers and distributed tasks. Useful for naively parallel tasks.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "jarFileUris": {
+                                        "description": "Optional. HCFS URIs of jar files to add to the CLASSPATHs of the Python driver and tasks.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "loggingConfig": {
+                                        "description": "Optional. The runtime log config for job execution.",
+                                        "properties": {
+                                            "driverLogLevels": {
+                                                "additionalProperties": {
+                                                    "enum": [
+                                                        "LEVEL_UNSPECIFIED",
+                                                        "ALL",
+                                                        "TRACE",
+                                                        "DEBUG",
+                                                        "INFO",
+                                                        "WARN",
+                                                        "ERROR",
+                                                        "FATAL",
+                                                        "OFF"
+                                                    ],
+                                                    "type": "string"
+                                                },
+                                                "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "mainPythonFileUri": {
+                                        "description": "Required. The HCFS URI of the main Python file to use as the driver. Must be a .py file.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. A mapping of property names to values, used to configure PySpark. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf and classes in user code.",
+                                        "type": "object"
+                                    },
+                                    "pythonFileUris": {
+                                        "description": "Optional. HCFS file URIs of Python files to pass to the PySpark framework. Supported file types: .py, .egg, and .zip.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "scheduling": {
+                                "description": "Optional. Job scheduling configuration.",
+                                "properties": {
+                                    "maxFailuresPerHour": {
+                                        "description": "Optional. Maximum number of times per hour a driver may be restarted as a result of driver terminating with non-zero code before job is reported failed.A job may be reported as thrashing if driver exits with non-zero code 4 times within 10 minute window.Maximum value is 10.",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "sparkJob": {
+                                "description": "Job is a Spark job.",
+                                "properties": {
+                                    "archiveUris": {
+                                        "description": "Optional. HCFS URIs of archives to be extracted in the working directory of Spark drivers and tasks. Supported file types: .jar, .tar, .tar.gz, .tgz, and .zip.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "args": {
+                                        "description": "Optional. The arguments to pass to the driver. Do not include arguments, such as --conf, that can be set as job properties, since a collision may occur that causes an incorrect job submission.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "fileUris": {
+                                        "description": "Optional. HCFS URIs of files to be copied to the working directory of Spark drivers and distributed tasks. Useful for naively parallel tasks.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "jarFileUris": {
+                                        "description": "Optional. HCFS URIs of jar files to add to the CLASSPATHs of the Spark driver and tasks.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "loggingConfig": {
+                                        "description": "Optional. The runtime log config for job execution.",
+                                        "properties": {
+                                            "driverLogLevels": {
+                                                "additionalProperties": {
+                                                    "enum": [
+                                                        "LEVEL_UNSPECIFIED",
+                                                        "ALL",
+                                                        "TRACE",
+                                                        "DEBUG",
+                                                        "INFO",
+                                                        "WARN",
+                                                        "ERROR",
+                                                        "FATAL",
+                                                        "OFF"
+                                                    ],
+                                                    "type": "string"
+                                                },
+                                                "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "mainClass": {
+                                        "description": "The name of the driver's main class. The jar file that contains the class must be in the default CLASSPATH or specified in jar_file_uris.",
+                                        "type": "string"
+                                    },
+                                    "mainJarFileUri": {
+                                        "description": "The HCFS URI of the jar file that contains the main class.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. A mapping of property names to values, used to configure Spark. Properties that conflict with values set by the Cloud Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf and classes in user code.",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "sparkSqlJob": {
+                                "description": "Job is a SparkSql job.",
+                                "properties": {
+                                    "jarFileUris": {
+                                        "description": "Optional. HCFS URIs of jar files to be added to the Spark CLASSPATH.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "loggingConfig": {
+                                        "description": "Optional. The runtime log config for job execution.",
+                                        "properties": {
+                                            "driverLogLevels": {
+                                                "additionalProperties": {
+                                                    "enum": [
+                                                        "LEVEL_UNSPECIFIED",
+                                                        "ALL",
+                                                        "TRACE",
+                                                        "DEBUG",
+                                                        "INFO",
+                                                        "WARN",
+                                                        "ERROR",
+                                                        "FATAL",
+                                                        "OFF"
+                                                    ],
+                                                    "type": "string"
+                                                },
+                                                "description": "The per-package log levels for the driver. This may include \"root\" package name to configure rootLogger. Examples:  'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG'",
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "properties": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. A mapping of property names to values, used to configure Spark SQL's SparkConf. Properties that conflict with values set by the Cloud Dataproc API may be overwritten.",
+                                        "type": "object"
+                                    },
+                                    "queryFileUri": {
+                                        "description": "The HCFS URI of the script that contains SQL queries.",
+                                        "type": "string"
+                                    },
+                                    "queryList": {
+                                        "description": "A list of queries.",
+                                        "properties": {
+                                            "queries": {
+                                                "description": "Required. The queries to execute. You do not need to terminate a query with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of an Cloud Dataproc API snippet that uses a QueryList to specify a HiveJob:\n\"hiveJob\": {\n  \"queryList\": {\n    \"queries\": [\n      \"query1\",\n      \"query2\",\n      \"query3;query4\",\n    ]\n  }\n}\n",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "scriptVariables": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Optional. Mapping of query variable names to values (equivalent to the Spark SQL command: SET name=\"value\";).",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "stepId": {
+                                "description": "Required. The step id. The id must be unique among all jobs within the template.The step id is used as prefix for job id, as job goog-dataproc-workflow-step-id label, and in prerequisiteStepIds field from other steps.The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_), and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between 3 and 50 characters.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "labels": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Optional. The labels to associate with this template. These labels will be propagated to all jobs and clusters created by the workflow instance.Label keys must contain 1 to 63 characters, and must conform to RFC 1035 (https://www.ietf.org/rfc/rfc1035.txt).Label values may be empty, but, if present, must contain 1 to 63 characters, and must conform to RFC 1035 (https://www.ietf.org/rfc/rfc1035.txt).No more than 32 labels can be associated with a template.",
+                    "type": "object"
+                },
+                "name": {
+                    "description": "Output only. The \"resource name\" of the template, as described in https://cloud.google.com/apis/design/resource_names of the form projects/{project_id}/regions/{region}/workflowTemplates/{template_id}",
+                    "type": "string"
+                },
+                "parameters": {
+                    "description": "Optional. Template parameters whose values are substituted into the template. Values for parameters must be provided when the template is instantiated.",
+                    "items": {
+                        "description": "A configurable parameter that replaces one or more fields in the template. Parameterizable fields: - Labels - File uris - Job properties - Job arguments - Script variables - Main class (in HadoopJob and SparkJob) - Zone (in ClusterSelector)",
+                        "properties": {
+                            "description": {
+                                "description": "Optional. Brief description of the parameter. Must not exceed 1024 characters.",
+                                "type": "string"
+                            },
+                            "fields": {
+                                "description": "Required. Paths to all fields that the parameter replaces. A field is allowed to appear in at most one parameter's list of field paths.A field path is similar in syntax to a google.protobuf.FieldMask. For example, a field path that references the zone field of a workflow template's cluster selector would be specified as placement.clusterSelector.zone.Also, field paths can reference fields using the following syntax:\nValues in maps can be referenced by key:\nlabels'key'\nplacement.clusterSelector.clusterLabels'key'\nplacement.managedCluster.labels'key'\nplacement.clusterSelector.clusterLabels'key'\njobs'step-id'.labels'key'\nJobs in the jobs list can be referenced by step-id:\njobs'step-id'.hadoopJob.mainJarFileUri\njobs'step-id'.hiveJob.queryFileUri\njobs'step-id'.pySparkJob.mainPythonFileUri\njobs'step-id'.hadoopJob.jarFileUris0\njobs'step-id'.hadoopJob.archiveUris0\njobs'step-id'.hadoopJob.fileUris0\njobs'step-id'.pySparkJob.pythonFileUris0\nItems in repeated fields can be referenced by a zero-based index:\njobs'step-id'.sparkJob.args0\nOther examples:\njobs'step-id'.hadoopJob.properties'key'\njobs'step-id'.hadoopJob.args0\njobs'step-id'.hiveJob.scriptVariables'key'\njobs'step-id'.hadoopJob.mainJarFileUri\nplacement.clusterSelector.zoneIt may not be possible to parameterize maps and repeated fields in their entirety since only individual map values and individual items in repeated fields can be referenced. For example, the following field paths are invalid:\nplacement.clusterSelector.clusterLabels\njobs'step-id'.sparkJob.args",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "name": {
+                                "description": "Required. Parameter name. The parameter name is used as the key, and paired with the parameter value, which are passed to the template when the template is instantiated. The name must contain only capital letters (A-Z), numbers (0-9), and underscores (_), and must not start with a number. The maximum length is 40 characters.",
+                                "type": "string"
+                            },
+                            "validation": {
+                                "description": "Optional. Validation rules to be applied to this parameter's value.",
+                                "properties": {
+                                    "regex": {
+                                        "description": "Validation based on regular expressions.",
+                                        "properties": {
+                                            "regexes": {
+                                                "description": "Required. RE2 regular expressions used to validate the parameter's value. The value must match the regex in its entirety (substring matches are not sufficient).",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "values": {
+                                        "description": "Validation based on a list of allowed values.",
+                                        "properties": {
+                                            "values": {
+                                                "description": "Required. List of allowed values for the parameter.",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "placement": {
+                    "description": "Required. WorkflowTemplate scheduling information.",
+                    "properties": {
+                        "clusterSelector": {
+                            "description": "Optional. A selector that chooses target cluster for jobs based on metadata.The selector is evaluated at the time each job is submitted.",
+                            "properties": {
+                                "clusterLabels": {
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "description": "Required. The cluster labels. Cluster must have all labels to match.",
+                                    "type": "object"
+                                },
+                                "zone": {
+                                    "description": "Optional. The zone where workflow process executes. This parameter does not affect the selection of the cluster.If unspecified, the zone of the first cluster matching the selector is used.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "managedCluster": {
+                            "description": "Optional. A cluster that is managed by the workflow.",
+                            "properties": {
+                                "clusterName": {
+                                    "description": "Required. The cluster name prefix. A unique cluster name will be formed by appending a random suffix.The name must contain only lower-case letters (a-z), numbers (0-9), and hyphens (-). Must begin with a letter. Cannot begin or end with hyphen. Must consist of between 2 and 35 characters.",
+                                    "type": "string"
+                                },
+                                "config": {
+                                    "description": "Required. The cluster configuration.",
+                                    "properties": {
+                                        "configBucket": {
+                                            "description": "Optional. A Google Cloud Storage bucket used to stage job dependencies, config files, and job driver console output. If you do not specify a staging bucket, Cloud Dataproc will determine a Cloud Storage location (US, ASIA, or EU) for your cluster's staging bucket according to the Google Compute Engine zone where your cluster is deployed, and then create and manage this project-level, per-location bucket (see Cloud Dataproc staging bucket).",
+                                            "type": "string"
+                                        },
+                                        "encryptionConfig": {
+                                            "description": "Optional. Encryption settings for the cluster.",
+                                            "properties": {
+                                                "gcePdKmsKeyName": {
+                                                    "description": "Optional. The Cloud KMS key name to use for PD disk encryption for all instances in the cluster.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "gceClusterConfig": {
+                                            "description": "Optional. The shared Compute Engine config settings for all instances in a cluster.",
+                                            "properties": {
+                                                "internalIpOnly": {
+                                                    "description": "Optional. If true, all instances in the cluster will only have internal IP addresses. By default, clusters are not restricted to internal IP addresses, and will have ephemeral external IP addresses assigned to each instance. This internal_ip_only restriction can only be enabled for subnetwork enabled networks, and all off-cluster dependencies must be configured to be accessible without external IP addresses.",
+                                                    "type": "boolean"
+                                                },
+                                                "metadata": {
+                                                    "additionalProperties": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "The Compute Engine metadata entries to add to all instances (see Project and instance metadata (https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).",
+                                                    "type": "object"
+                                                },
+                                                "networkUri": {
+                                                    "description": "Optional. The Compute Engine network to be used for machine communications. Cannot be specified with subnetwork_uri. If neither network_uri nor subnetwork_uri is specified, the \"default\" network of the project is used, if it exists. Cannot be a \"Custom Subnet Network\" (see Using Subnetworks for more information).A full URL, partial URI, or short name are valid. Examples:\nhttps://www.googleapis.com/compute/v1/projects/[project_id]/regions/global/default\nprojects/[project_id]/regions/global/default\ndefault",
+                                                    "type": "string"
+                                                },
+                                                "serviceAccount": {
+                                                    "description": "Optional. The service account of the instances. Defaults to the default Compute Engine service account. Custom service accounts need permissions equivalent to the following IAM roles:\nroles/logging.logWriter\nroles/storage.objectAdmin(see https://cloud.google.com/compute/docs/access/service-accounts#custom_service_accounts for more information). Example: [account_id]@[project_id].iam.gserviceaccount.com",
+                                                    "type": "string"
+                                                },
+                                                "serviceAccountScopes": {
+                                                    "description": "Optional. The URIs of service account scopes to be included in Compute Engine instances. The following base set of scopes is always included:\nhttps://www.googleapis.com/auth/cloud.useraccounts.readonly\nhttps://www.googleapis.com/auth/devstorage.read_write\nhttps://www.googleapis.com/auth/logging.writeIf no scopes are specified, the following defaults are also provided:\nhttps://www.googleapis.com/auth/bigquery\nhttps://www.googleapis.com/auth/bigtable.admin.table\nhttps://www.googleapis.com/auth/bigtable.data\nhttps://www.googleapis.com/auth/devstorage.full_control",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "subnetworkUri": {
+                                                    "description": "Optional. The Compute Engine subnetwork to be used for machine communications. Cannot be specified with network_uri.A full URL, partial URI, or short name are valid. Examples:\nhttps://www.googleapis.com/compute/v1/projects/[project_id]/regions/us-east1/sub0\nprojects/[project_id]/regions/us-east1/sub0\nsub0",
+                                                    "type": "string"
+                                                },
+                                                "tags": {
+                                                    "description": "The Compute Engine tags to add to all instances (see Tagging instances).",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "zoneUri": {
+                                                    "description": "Optional. The zone where the Compute Engine cluster will be located. On a create request, it is required in the \"global\" region. If omitted in a non-global Cloud Dataproc region, the service will pick a zone in the corresponding Compute Engine region. On a get request, zone will always be present.A full URL, partial URI, or short name are valid. Examples:\nhttps://www.googleapis.com/compute/v1/projects/[project_id]/zones/[zone]\nprojects/[project_id]/zones/[zone]\nus-central1-f",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "initializationActions": {
+                                            "description": "Optional. Commands to execute on each node after config is completed. By default, executables are run on master and all worker nodes. You can test a node's role metadata to run an executable on a master or worker node, as shown below using curl (you can also use wget):\nROLE=$(curl -H Metadata-Flavor:Google http://metadata/computeMetadata/v1/instance/attributes/dataproc-role)\nif [[ \"${ROLE}\" == 'Master' ]]; then\n  ... master specific actions ...\nelse\n  ... worker specific actions ...\nfi\n",
+                                            "items": {
+                                                "description": "Specifies an executable to run on a fully configured node and a timeout period for executable completion.",
+                                                "properties": {
+                                                    "executableFile": {
+                                                        "description": "Required. Cloud Storage URI of executable file.",
+                                                        "type": "string"
+                                                    },
+                                                    "executionTimeout": {
+                                                        "description": "Optional. Amount of time executable has to complete. Default is 10 minutes. Cluster creation fails with an explanatory error message (the name of the executable that caused the error and the exceeded timeout period) if the executable is not completed at end of the timeout period.",
+                                                        "format": "google-duration",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "masterConfig": {
+                                            "description": "Optional. The Compute Engine config settings for the master instance in a cluster.",
+                                            "properties": {
+                                                "accelerators": {
+                                                    "description": "Optional. The Compute Engine accelerator configuration for these instances.Beta Feature: This feature is still under development. It may be changed before final release.",
+                                                    "items": {
+                                                        "description": "Specifies the type and number of accelerator cards attached to the instances of an instance. See GPUs on Compute Engine.",
+                                                        "properties": {
+                                                            "acceleratorCount": {
+                                                                "description": "The number of the accelerator cards of this type exposed to this instance.",
+                                                                "format": "int32",
+                                                                "type": "integer"
+                                                            },
+                                                            "acceleratorTypeUri": {
+                                                                "description": "Full URL, partial URI, or short name of the accelerator type resource to expose to this instance. See Compute Engine AcceleratorTypes.Examples:\nhttps://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80\nprojects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80\nnvidia-tesla-k80Auto Zone Exception: If you are using the Cloud Dataproc Auto Zone Placement feature, you must use the short name of the accelerator type resource, for example, nvidia-tesla-k80.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "diskConfig": {
+                                                    "description": "Optional. Disk option config settings.",
+                                                    "properties": {
+                                                        "bootDiskSizeGb": {
+                                                            "description": "Optional. Size in GB of the boot disk (default is 500GB).",
+                                                            "format": "int32",
+                                                            "type": "integer"
+                                                        },
+                                                        "bootDiskType": {
+                                                            "description": "Optional. Type of the boot disk (default is \"pd-standard\"). Valid values: \"pd-ssd\" (Persistent Disk Solid State Drive) or \"pd-standard\" (Persistent Disk Hard Disk Drive).",
+                                                            "type": "string"
+                                                        },
+                                                        "numLocalSsds": {
+                                                            "description": "Optional. Number of attached SSDs, from 0 to 4 (default is 0). If SSDs are not attached, the boot disk is used to store runtime logs and HDFS (https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html) data. If one or more SSDs are attached, this runtime bulk data is spread across them, and the boot disk contains only basic config and installed binaries.",
+                                                            "format": "int32",
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "imageUri": {
+                                                    "description": "Optional. The Compute Engine image resource used for cluster instances. It can be specified or may be inferred from SoftwareConfig.image_version.",
+                                                    "type": "string"
+                                                },
+                                                "instanceNames": {
+                                                    "description": "Output only. The list of instance names. Cloud Dataproc derives the names from cluster_name, num_instances, and the instance group.",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "isPreemptible": {
+                                                    "description": "Optional. Specifies that this instance group contains preemptible instances.",
+                                                    "type": "boolean"
+                                                },
+                                                "machineTypeUri": {
+                                                    "description": "Optional. The Compute Engine machine type used for cluster instances.A full URL, partial URI, or short name are valid. Examples:\nhttps://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2\nprojects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2\nn1-standard-2Auto Zone Exception: If you are using the Cloud Dataproc Auto Zone Placement feature, you must use the short name of the machine type resource, for example, n1-standard-2.",
+                                                    "type": "string"
+                                                },
+                                                "managedGroupConfig": {
+                                                    "description": "Output only. The config for Compute Engine Instance Group Manager that manages this group. This is only used for preemptible instance groups.",
+                                                    "properties": {
+                                                        "instanceGroupManagerName": {
+                                                            "description": "Output only. The name of the Instance Group Manager for this group.",
+                                                            "type": "string"
+                                                        },
+                                                        "instanceTemplateName": {
+                                                            "description": "Output only. The name of the Instance Template used for the Managed Instance Group.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "numInstances": {
+                                                    "description": "Optional. The number of VM instances in the instance group. For master instance groups, must be set to 1.",
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "secondaryWorkerConfig": {
+                                            "description": "Optional. The Compute Engine config settings for additional worker instances in a cluster.",
+                                            "properties": {
+                                                "accelerators": {
+                                                    "description": "Optional. The Compute Engine accelerator configuration for these instances.Beta Feature: This feature is still under development. It may be changed before final release.",
+                                                    "items": {
+                                                        "description": "Specifies the type and number of accelerator cards attached to the instances of an instance. See GPUs on Compute Engine.",
+                                                        "properties": {
+                                                            "acceleratorCount": {
+                                                                "description": "The number of the accelerator cards of this type exposed to this instance.",
+                                                                "format": "int32",
+                                                                "type": "integer"
+                                                            },
+                                                            "acceleratorTypeUri": {
+                                                                "description": "Full URL, partial URI, or short name of the accelerator type resource to expose to this instance. See Compute Engine AcceleratorTypes.Examples:\nhttps://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80\nprojects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80\nnvidia-tesla-k80Auto Zone Exception: If you are using the Cloud Dataproc Auto Zone Placement feature, you must use the short name of the accelerator type resource, for example, nvidia-tesla-k80.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "diskConfig": {
+                                                    "description": "Optional. Disk option config settings.",
+                                                    "properties": {
+                                                        "bootDiskSizeGb": {
+                                                            "description": "Optional. Size in GB of the boot disk (default is 500GB).",
+                                                            "format": "int32",
+                                                            "type": "integer"
+                                                        },
+                                                        "bootDiskType": {
+                                                            "description": "Optional. Type of the boot disk (default is \"pd-standard\"). Valid values: \"pd-ssd\" (Persistent Disk Solid State Drive) or \"pd-standard\" (Persistent Disk Hard Disk Drive).",
+                                                            "type": "string"
+                                                        },
+                                                        "numLocalSsds": {
+                                                            "description": "Optional. Number of attached SSDs, from 0 to 4 (default is 0). If SSDs are not attached, the boot disk is used to store runtime logs and HDFS (https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html) data. If one or more SSDs are attached, this runtime bulk data is spread across them, and the boot disk contains only basic config and installed binaries.",
+                                                            "format": "int32",
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "imageUri": {
+                                                    "description": "Optional. The Compute Engine image resource used for cluster instances. It can be specified or may be inferred from SoftwareConfig.image_version.",
+                                                    "type": "string"
+                                                },
+                                                "instanceNames": {
+                                                    "description": "Output only. The list of instance names. Cloud Dataproc derives the names from cluster_name, num_instances, and the instance group.",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "isPreemptible": {
+                                                    "description": "Optional. Specifies that this instance group contains preemptible instances.",
+                                                    "type": "boolean"
+                                                },
+                                                "machineTypeUri": {
+                                                    "description": "Optional. The Compute Engine machine type used for cluster instances.A full URL, partial URI, or short name are valid. Examples:\nhttps://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2\nprojects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2\nn1-standard-2Auto Zone Exception: If you are using the Cloud Dataproc Auto Zone Placement feature, you must use the short name of the machine type resource, for example, n1-standard-2.",
+                                                    "type": "string"
+                                                },
+                                                "managedGroupConfig": {
+                                                    "description": "Output only. The config for Compute Engine Instance Group Manager that manages this group. This is only used for preemptible instance groups.",
+                                                    "properties": {
+                                                        "instanceGroupManagerName": {
+                                                            "description": "Output only. The name of the Instance Group Manager for this group.",
+                                                            "type": "string"
+                                                        },
+                                                        "instanceTemplateName": {
+                                                            "description": "Output only. The name of the Instance Template used for the Managed Instance Group.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "numInstances": {
+                                                    "description": "Optional. The number of VM instances in the instance group. For master instance groups, must be set to 1.",
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "softwareConfig": {
+                                            "description": "Optional. The config settings for software inside the cluster.",
+                                            "properties": {
+                                                "imageVersion": {
+                                                    "description": "Optional. The version of software inside the cluster. It must be one of the supported Cloud Dataproc Versions, such as \"1.2\" (including a subminor version, such as \"1.2.29\"), or the \"preview\" version. If unspecified, it defaults to the latest version.",
+                                                    "type": "string"
+                                                },
+                                                "optionalComponents": {
+                                                    "description": "The set of optional components to activate on the cluster.",
+                                                    "items": {
+                                                        "enum": [
+                                                            "COMPONENT_UNSPECIFIED",
+                                                            "ANACONDA",
+                                                            "HIVE_WEBHCAT",
+                                                            "JUPYTER",
+                                                            "ZEPPELIN"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "properties": {
+                                                    "additionalProperties": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "Optional. The properties to set on daemon config files.Property keys are specified in prefix:property format, for example core:hadoop.tmp.dir. The following are supported prefixes and their mappings:\ncapacity-scheduler: capacity-scheduler.xml\ncore: core-site.xml\ndistcp: distcp-default.xml\nhdfs: hdfs-site.xml\nhive: hive-site.xml\nmapred: mapred-site.xml\npig: pig.properties\nspark: spark-defaults.conf\nyarn: yarn-site.xmlFor more information, see Cluster properties.",
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "workerConfig": {
+                                            "description": "Optional. The Compute Engine config settings for worker instances in a cluster.",
+                                            "properties": {
+                                                "accelerators": {
+                                                    "description": "Optional. The Compute Engine accelerator configuration for these instances.Beta Feature: This feature is still under development. It may be changed before final release.",
+                                                    "items": {
+                                                        "description": "Specifies the type and number of accelerator cards attached to the instances of an instance. See GPUs on Compute Engine.",
+                                                        "properties": {
+                                                            "acceleratorCount": {
+                                                                "description": "The number of the accelerator cards of this type exposed to this instance.",
+                                                                "format": "int32",
+                                                                "type": "integer"
+                                                            },
+                                                            "acceleratorTypeUri": {
+                                                                "description": "Full URL, partial URI, or short name of the accelerator type resource to expose to this instance. See Compute Engine AcceleratorTypes.Examples:\nhttps://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80\nprojects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80\nnvidia-tesla-k80Auto Zone Exception: If you are using the Cloud Dataproc Auto Zone Placement feature, you must use the short name of the accelerator type resource, for example, nvidia-tesla-k80.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "diskConfig": {
+                                                    "description": "Optional. Disk option config settings.",
+                                                    "properties": {
+                                                        "bootDiskSizeGb": {
+                                                            "description": "Optional. Size in GB of the boot disk (default is 500GB).",
+                                                            "format": "int32",
+                                                            "type": "integer"
+                                                        },
+                                                        "bootDiskType": {
+                                                            "description": "Optional. Type of the boot disk (default is \"pd-standard\"). Valid values: \"pd-ssd\" (Persistent Disk Solid State Drive) or \"pd-standard\" (Persistent Disk Hard Disk Drive).",
+                                                            "type": "string"
+                                                        },
+                                                        "numLocalSsds": {
+                                                            "description": "Optional. Number of attached SSDs, from 0 to 4 (default is 0). If SSDs are not attached, the boot disk is used to store runtime logs and HDFS (https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html) data. If one or more SSDs are attached, this runtime bulk data is spread across them, and the boot disk contains only basic config and installed binaries.",
+                                                            "format": "int32",
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "imageUri": {
+                                                    "description": "Optional. The Compute Engine image resource used for cluster instances. It can be specified or may be inferred from SoftwareConfig.image_version.",
+                                                    "type": "string"
+                                                },
+                                                "instanceNames": {
+                                                    "description": "Output only. The list of instance names. Cloud Dataproc derives the names from cluster_name, num_instances, and the instance group.",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "isPreemptible": {
+                                                    "description": "Optional. Specifies that this instance group contains preemptible instances.",
+                                                    "type": "boolean"
+                                                },
+                                                "machineTypeUri": {
+                                                    "description": "Optional. The Compute Engine machine type used for cluster instances.A full URL, partial URI, or short name are valid. Examples:\nhttps://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2\nprojects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2\nn1-standard-2Auto Zone Exception: If you are using the Cloud Dataproc Auto Zone Placement feature, you must use the short name of the machine type resource, for example, n1-standard-2.",
+                                                    "type": "string"
+                                                },
+                                                "managedGroupConfig": {
+                                                    "description": "Output only. The config for Compute Engine Instance Group Manager that manages this group. This is only used for preemptible instance groups.",
+                                                    "properties": {
+                                                        "instanceGroupManagerName": {
+                                                            "description": "Output only. The name of the Instance Group Manager for this group.",
+                                                            "type": "string"
+                                                        },
+                                                        "instanceTemplateName": {
+                                                            "description": "Output only. The name of the Instance Template used for the Managed Instance Group.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "numInstances": {
+                                                    "description": "Optional. The number of VM instances in the instance group. For master instance groups, must be set to 1.",
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "labels": {
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "description": "Optional. The labels to associate with this cluster.Label keys must be between 1 and 63 characters long, and must conform to the following PCRE regular expression: \\p{Ll}\\p{Lo}{0,62}Label values must be between 1 and 63 characters long, and must conform to the following PCRE regular expression: \\p{Ll}\\p{Lo}\\p{N}_-{0,63}No more than 32 labels can be associated with a given cluster.",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "updateTime": {
+                    "description": "Output only. The time template was last updated.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Optional. Used to perform a consistent read-modify-write.This field should be left blank for a CreateWorkflowTemplate request. It is required for an UpdateWorkflowTemplate request, and must match the current server version. A typical update template flow would fetch the current template with a GetWorkflowTemplate request, which will return the current template with the version field filled in with the current server version. The user updates other fields in the template, then returns it as part of the UpdateWorkflowTemplate request.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

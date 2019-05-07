@@ -1,0 +1,46 @@
+{
+    "type": "object",
+    "properties": {
+        "clusterName": {
+            "type": "string"
+        },
+        "filter": {
+            "type": "string"
+        },
+        "jobStateMatcher": {
+            "type": "string",
+            "enum": [
+                "ALL",
+                "ACTIVE",
+                "NON_ACTIVE"
+            ]
+        },
+        "pageSize": {
+            "type": "integer"
+        },
+        "pageToken": {
+            "type": "string"
+        },
+        "projectId": {
+            "required": true,
+            "type": "string"
+        },
+        "region": {
+            "required": true,
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        }
+    }
+}
